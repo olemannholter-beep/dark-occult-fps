@@ -1,0 +1,14 @@
+# Godot 4+ specific ignores
+.godot/
+.mcp_captures/
+
+# Mono-specific ignores
+.mono/
+data_*/
+mono_crash.*.json
+
+# System/tool ignores
+.DS_Store
+Thumbs.db
+__pycache__/
+*.pyc

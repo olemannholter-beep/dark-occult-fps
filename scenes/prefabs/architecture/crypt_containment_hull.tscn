@@ -1,0 +1,52 @@
+[gd_scene format=4]
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_q8nbx"]
+resource_name = "DarkContainmentHullStone"
+cull_mode = 2
+roughness = 0.95
+
+[sub_resource type="ArrayMesh" id="ArrayMesh_esss0"]
+_surfaces = [{
+"aabb": AABB(-32, -10, -86, 64, 13.8, 67),
+"format": 34896613377,
+"index_count": 48,
+"index_data": PackedByteArray("AAABAAIAAgABAAMAAAAEAAEABAADAAEAAAACAAUAAgADAAUAAAAGAAQABAAGAAMABwAFAAMABwADAAgAAAAFAAkAAAAJAAYACQAKAAYACQALAAoADAAIAAoADAANAAgA"),
+"name": "DarkContainmentHullStone",
+"primitive": 3,
+"uv_scale": Vector4(0, 0, 0, 0),
+"vertex_count": 14,
+"vertex_data": PackedByteArray("AAAAAP//AAD//wAAAAAAAP//AAD//wAA/////wAAAAAAAAAAAAAAAP///////wAAAAD//wAAAAAyl/////8AADKX//8AAAAAAAD/////AADMaP//AAAAAMxo/////wAAzGj//1/eAAAyl///X94AAA==")
+}]
+blend_shape_mode = 0
+
+[sub_resource type="ArrayMesh" id="ArrayMesh_5bmsg"]
+resource_name = "crypt_containment_hull_CryptContainmentHullMesh"
+_surfaces = [{
+"aabb": AABB(-32, -10, -86, 64, 13.8, 67),
+"attribute_data": PackedByteArray("AQEB/wEBAf8BAQH/AQEB/wEBAf8BAQH/AQEB/wEBAf8BAQH/AQEB/wEBAf8BAQH/AQEB/wEBAf8BAQH/AQEB/wEBAf8BAQH/AQEB/wEBAf8BAQH/AQEB/wEBAf8BAQH/AQEB/wEBAf8BAQH/AQEB/wEBAf8BAQH/"),
+"format": 34896613391,
+"index_count": 48,
+"index_data": PackedByteArray("AAABAAIAAAADAAEABAAFAAYABAAHAAUACAAJAAoACAALAAkADAANAA4ADAAPAA0AEAARABIAEAATABEAFAAVABYAFAAXABUAGAAZABUAGAAaABkAGwAcABkAGwAdABwA"),
+"material": SubResource("StandardMaterial3D_q8nbx"),
+"name": "DarkContainmentHullStone",
+"primitive": 3,
+"uv_scale": Vector4(0, 0, 0, 0),
+"vertex_count": 30,
+"vertex_data": PackedByteArray("AAAAAP///////wAAAAD/////AAD/////AAAAAAAA//8AAAAA/////wAA//8AAP//AAAAAAAA//8AAP//////////AAD///+//////wAA/7//////////v///AAAAAP+/AAAAAP///////////////wAA//////////8AAP////8AAAAAAAD/v/////8AAP+///8AAAAA/78AAP//AAD/vwAA////////zGj//wAA//8AAP//AAD//8xo////////zGj//1/e//8yl///AAD//zKX//9f3v//Mpf/////////////AAD//////////////3//v/9//7//f/+//3//v/+//3//v/9//7//f/+//3//f////3////9/////f////z//v/8//7//P/+//z//v/9//3//f/9//3//f/9//3//f/8//3//P/9//z//f/8//3//P/9//z//f/8//3//P/9//z//f/8/")
+}]
+blend_shape_mode = 0
+shadow_mesh = SubResource("ArrayMesh_esss0")
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_x0i3l"]
+vertex_color_use_as_albedo = true
+albedo_color = Color(0.06, 0.06, 0.08, 1)
+metallic_specular = 0.08
+roughness = 0.95
+
+[node name="CryptContainmentHull" type="Node3D" unique_id=837240846]
+metadata/surface_type = "stone"
+
+[node name="CryptContainmentHull" type="MeshInstance3D" parent="." unique_id=477048393]
+cast_shadow = 0
+mesh = SubResource("ArrayMesh_5bmsg")
+surface_material_override/0 = SubResource("StandardMaterial3D_x0i3l")

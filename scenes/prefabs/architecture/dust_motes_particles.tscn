@@ -1,0 +1,38 @@
+[gd_scene format=3]
+
+[sub_resource type="ParticleProcessMaterial" id="ParticleProcessMaterial_hp8du"]
+emission_shape = 3
+emission_box_extents = Vector3(7, 2.5, 7)
+direction = Vector3(0.2, -1, 0.15)
+spread = 65.0
+initial_velocity_min = 0.04
+initial_velocity_max = 0.14
+gravity = Vector3(0, -0.02, 0)
+scale_min = 0.6
+scale_max = 1.4
+color = Color(0.95, 0.86, 0.68, 0.42)
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_pd5nl"]
+transparency = 1
+blend_mode = 1
+shading_mode = 0
+vertex_color_use_as_albedo = true
+albedo_color = Color(0.95, 0.86, 0.68, 0.38)
+billboard_mode = 3
+billboard_keep_scale = true
+particles_anim_h_frames = 1
+particles_anim_v_frames = 1
+particles_anim_loop = false
+
+[sub_resource type="QuadMesh" id="QuadMesh_vamsi"]
+material = SubResource("StandardMaterial3D_pd5nl")
+size = Vector2(0.022, 0.022)
+
+[node name="DustMotesParticles" type="GPUParticles3D" unique_id=1924996200]
+cast_shadow = 0
+amount = 140
+lifetime = 9.0
+preprocess = 2.0
+visibility_aabb = AABB(-7, -2.5, -7, 14, 5, 14)
+process_material = SubResource("ParticleProcessMaterial_hp8du")
+draw_pass_1 = SubResource("QuadMesh_vamsi")

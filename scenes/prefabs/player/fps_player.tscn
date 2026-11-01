@@ -1,0 +1,130 @@
+[gd_scene format=3]
+
+[ext_resource type="Script" path="res://scripts/player/fps_controller.gd" id="1_jdjc5"]
+[ext_resource type="Script" path="res://scripts/player/fps_viewmodel_controller.gd" id="6_cbrc7"]
+[ext_resource type="PackedScene" path="res://assets/models/weapons/viewmodel_left_lantern.glb" id="7_ylpmm"]
+[ext_resource type="PackedScene" path="res://assets/models/weapons/viewmodel_right_revolver.glb" id="8_nylxj"]
+[ext_resource type="Script" path="res://scripts/player/fps_hud.gd" id="9_hi3qm"]
+[ext_resource type="Script" path="res://scripts/player/player_loadout_manager.gd" id="15_u6ac3"]
+
+[sub_resource type="CapsuleShape3D" id="CapsuleShape3D_55nua"]
+radius = 0.4
+height = 1.8
+
+[sub_resource type="ParticleProcessMaterial" id="ParticleProcessMaterial_64ev3"]
+direction = Vector3(0, 0, -1)
+spread = 22.0
+initial_velocity_min = 12.0
+initial_velocity_max = 18.0
+gravity = Vector3(0, 0, 0)
+color = Color(1, 0.78, 0.38, 1)
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_bob00"]
+blend_mode = 1
+shading_mode = 0
+albedo_color = Color(1, 0.82, 0.42, 1)
+
+[sub_resource type="BoxMesh" id="BoxMesh_ng5we"]
+material = SubResource("StandardMaterial3D_bob00")
+size = Vector3(0.008, 0.008, 0.04)
+
+[node name="FPSPlayer" type="CharacterBody3D" unique_id=1120440336]
+collision_layer = 3
+floor_constant_speed = true
+floor_max_angle = 0.9075712
+floor_snap_length = 0.35
+safe_margin = 0.04
+script = ExtResource("1_jdjc5")
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="." unique_id=504306393]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.9, 0)
+shape = SubResource("CapsuleShape3D_55nua")
+
+[node name="Head" type="Node3D" parent="." unique_id=1540331929]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.6, 0)
+
+[node name="Camera3D" type="Camera3D" parent="Head" unique_id=951523662]
+current = true
+near = 0.03
+
+[node name="InteractionRayCast3D" type="RayCast3D" parent="Head/Camera3D" unique_id=1695119125]
+target_position = Vector3(0, 0, -3.8)
+collide_with_areas = true
+
+[node name="ViewmodelRig" type="Node3D" parent="Head/Camera3D" unique_id=294830073 node_paths=PackedStringArray("left_hand_pivot", "right_hand_pivot", "lantern_light", "muzzle_flash_light", "muzzle_particles", "wall_raycast", "hitscan_raycast")]
+script = ExtResource("6_cbrc7")
+left_hand_pivot = NodePath("LeftHandPivot")
+right_hand_pivot = NodePath("RightHandPivot")
+lantern_light = NodePath("LeftHandPivot/LanternLight")
+muzzle_flash_light = NodePath("RightHandPivot/MuzzleFlashLight")
+muzzle_particles = NodePath("RightHandPivot/MuzzleParticles")
+wall_raycast = NodePath("WallRayCast")
+hitscan_raycast = NodePath("HitscanRayCast")
+
+[node name="ViewmodelRimLight" type="OmniLight3D" parent="Head/Camera3D/ViewmodelRig" unique_id=958372165]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.08, 0.14, -0.22)
+light_color = Color(0.88, 0.84, 0.95, 1)
+light_energy = 0.4
+light_specular = 0.35
+omni_range = 1.2
+omni_attenuation = 1.2
+
+[node name="WallRayCast" type="RayCast3D" parent="Head/Camera3D/ViewmodelRig" unique_id=790708577]
+target_position = Vector3(0, 0, -1.1)
+
+[node name="HitscanRayCast" type="RayCast3D" parent="Head/Camera3D/ViewmodelRig" unique_id=227333528]
+target_position = Vector3(0, 0, -100)
+collision_mask = 5
+
+[node name="LeftHandPivot" type="Node3D" parent="Head/Camera3D/ViewmodelRig" unique_id=1439767959]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.31, -0.28, -0.42)
+
+[node name="LeftLanternModel" type="Node3D" parent="Head/Camera3D/ViewmodelRig/LeftHandPivot" unique_id=1602929171 instance=ExtResource("7_ylpmm")]
+
+[node name="LanternLight" type="OmniLight3D" parent="Head/Camera3D/ViewmodelRig/LeftHandPivot" unique_id=269244533]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.156, 0)
+light_color = Color(1, 0.68, 0.32, 1)
+light_energy = 2.35
+light_volumetric_fog_energy = 3.8
+light_specular = 0.22
+shadow_enabled = true
+shadow_bias = 0.03
+shadow_normal_bias = 1.2
+shadow_blur = 1.5
+omni_range = 26.0
+omni_attenuation = 0.82
+
+[node name="RightHandPivot" type="Node3D" parent="Head/Camera3D/ViewmodelRig" unique_id=334537847]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.24, -0.21, -0.4)
+
+[node name="RightRevolverModel" type="Node3D" parent="Head/Camera3D/ViewmodelRig/RightHandPivot" unique_id=1900591510 instance=ExtResource("8_nylxj")]
+
+[node name="MuzzleFlashLight" type="OmniLight3D" parent="Head/Camera3D/ViewmodelRig/RightHandPivot" unique_id=580414265]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.06, -0.55)
+visible = false
+light_color = Color(1, 0.65, 0.25, 1)
+light_energy = 3.2
+omni_range = 8.0
+
+[node name="MuzzleParticles" type="GPUParticles3D" parent="Head/Camera3D/ViewmodelRig/RightHandPivot" unique_id=540661230]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.06, -0.55)
+emitting = false
+amount = 14
+lifetime = 0.08
+one_shot = true
+explosiveness = 0.95
+local_coords = true
+process_material = SubResource("ParticleProcessMaterial_64ev3")
+draw_pass_1 = SubResource("BoxMesh_ng5we")
+
+[node name="HUD" type="CanvasLayer" parent="." unique_id=284749379 node_paths=PackedStringArray("viewmodel_controller")]
+layer = 10
+script = ExtResource("9_hi3qm")
+viewmodel_controller = NodePath("../Head/Camera3D/ViewmodelRig")
+
+[node name="PlayerLoadoutManager" type="Node" parent="." unique_id=1922918207 node_paths=PackedStringArray("player_controller", "viewmodel_controller", "hud", "interaction_raycast")]
+script = ExtResource("15_u6ac3")
+player_controller = NodePath("..")
+viewmodel_controller = NodePath("../Head/Camera3D/ViewmodelRig")
+hud = NodePath("../HUD")
+interaction_raycast = NodePath("../Head/Camera3D/InteractionRayCast3D")
